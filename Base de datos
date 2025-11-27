@@ -1,0 +1,42 @@
+-- Crear la base de datos
+CREATE DATABASE pedidos_db;
+USE pedidos_db;
+
+-- Tabla Clientes
+CREATE TABLE Clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla Productos
+CREATE TABLE Productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    stock INT DEFAULT 0
+);
+
+-- Tabla Pedidos (intermedia)
+CREATE TABLE Pedidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    producto_id INT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    nota TEXT,
+    FOREIGN KEY (cliente_id) REFERENCES Clientes(id),
+    FOREIGN KEY (producto_id) REFERENCES Productos(id)
+);
+
+-- Insertar datos iniciales
+INSERT INTO Clientes (nombre, correo) VALUES
+('Juan Pérez', 'juan@example.com'),
+('María González', 'maria@example.com'),
+('Carlos Ramírez', 'carlos@example.com');
+
+INSERT INTO Productos (nombre, precio, stock) VALUES
+('Laptop Dell', 850.00, 10),
+('Mouse Logitech', 25.50, 50),
+('Teclado Mecánico', 75.00, 30),
+('Monitor LG 24"', 200.00, 15);
