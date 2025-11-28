@@ -46,7 +46,6 @@ fi
 LATEST_BACKUP=$(ls -t "${BACKUP_DIR}"/pedidos_backup_from_secondary_*.sql.gz 2>/dev/null | head -1)
 if [ -z "$LATEST_BACKUP" ]; then
     log_message "ERROR: No se encontró backup desde PC2, pero existe restore_requested. Abortando."
-    # limpiar flag para evitar loop? mejor no; para investigar manualmente
     exit 1
 fi
 
